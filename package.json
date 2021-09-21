@@ -1,0 +1,23 @@
+{
+  "name": "facegram-instabook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "require": "^2.4.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeClark33/facegram-instabook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeClark33/facegram-instabook/issues"
+  },
+  "homepage": "https://github.com/JakeClark33/facegram-instabook#readme"
+}
