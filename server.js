@@ -10,8 +10,8 @@ app.use(express.static('public'));
 
 app.use(require('./routes'));
 
-connect(process.env.MONGODB_URI || 'mongodb://localhost/facegram-instabook', {
-    useFindAndModify: false,
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/facegram-instabook', {
+    // useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

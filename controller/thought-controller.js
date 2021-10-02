@@ -1,7 +1,7 @@
 
-const { Thought, User } = require('../models');
+const { Thought } = require('../models/Thought');
 
-const thoughtController = {
+const ThoughtController = {
     // add thought to User
         addThought({ params, body }, res) {
             console.log(body);
@@ -22,6 +22,7 @@ const thoughtController = {
               })
               .catch(err => res.json(err));
           },
+          
     //remove thought
     removeThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId })
@@ -46,7 +47,7 @@ const thoughtController = {
       }
 };
 
-module.exports = thoughtController;
+module.exports = ThoughtController;
 
 
 // module.exports = {
