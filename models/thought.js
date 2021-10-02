@@ -1,6 +1,7 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 const user = require('./user');
-const ObjectId = Schema.Types.ObjectId
+const ObjectId = mongoose.Types.ObjectId;
 //code length stolen from https://stackoverflow.com/questions/22405975/how-to-validate-string-length-with-mongoose
 const thoughtSchema = new Schema({
     thoughtText: {
@@ -15,17 +16,16 @@ const thoughtSchema = new Schema({
         default: Date.now
     },
     username: {
-        type: mongoose.Schema.Types.ObjectID,
+        type: Schema.Types.ObjectID,
         ref: 'Username'
     },
     reactions: {
         reactionCount: []
     },
 })
-const reaction = mongoose.model('reaction', reactionSchema)
 
 const reactionSchema = new Schema ({
-
+    
     reactionId: {
         type: ObjectId,
         default: new ObjectId 
@@ -44,4 +44,6 @@ const reactionSchema = new Schema ({
         default: Date.now,
     },
 })
-module.exports = thought;
+const reaction = mongoose.model('reaction', reactionSchema)
+const thought = mongoose.model('thought', thoughtSchema)
+module.exports = { thought, reaction };
