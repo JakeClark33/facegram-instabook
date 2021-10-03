@@ -2,30 +2,37 @@ const router = require('express').Router();
 const { addThought, removeThought } = require('../../controller/thought-controller');
 // const userRoutes = require('./user-routes');
 // const thoughtModel = require('../../models/Thought');
+const thoughtRoutes = require('../../models/Thought');
+const UserRoutes = require('./user-routes');
 
-// router.use('/thoughts', thoughtRoutes);
-// router.use('/users', userRoutes);
+const{
+    addReaction,
+    removeReaction,
+} = require('../../controller/thought-controller');
+
+
+router.use('/thoughts', thoughtRoutes);
+router.use('/users', UserRoutes);
 // /api/comments/<userId>
 
 // set up GET all and POST - /api/thoughts
 router
-    .route('/')
+    .route('/:userId')
     // .get(allThoughts)
     .post(addThought);
 
 //set up get 1, PUT (Edit), and DELETE - /api/thoughts/:id
 router
-    .route('/:id')
-    // .get(thoughtById)
-    // .put(updateThought)
-    .delete(removeThought);
+    .route('/:userId/:thoughtId')
+    .put(addReaction)
+    .delete(removeThought)
 
 //set up POST routes for Reactions - api/thoughts/:thoughtId/reactions
 
 
 //set up DELETE for reactions - api/thoughts/:thoughtID/reactions/:reactionId
 
-
+router.route('/:userId/:thoughtId/:reactionId').delete(removeReply);
 // /api/comments/userId/thoughtId
 router
 

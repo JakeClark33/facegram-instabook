@@ -1,7 +1,7 @@
 
 const { Thought } = require('../models/Thought');
 
-const ThoughtController = {
+const thoughtController = {
     // add thought to User
         addThought({ params, body }, res) {
             console.log(body);
@@ -47,7 +47,7 @@ const ThoughtController = {
       }
 };
 
-module.exports = ThoughtController;
+module.exports = thoughtController;
 
 
 // module.exports = {
