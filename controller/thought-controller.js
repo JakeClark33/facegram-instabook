@@ -1,5 +1,5 @@
 
-const { Thought } = require('../models/hought');
+const { Thought } = require('../models/Thought');
 
 const thoughtController = {
 
