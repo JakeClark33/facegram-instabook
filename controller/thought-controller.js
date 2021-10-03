@@ -80,21 +80,44 @@ const thoughtController = {
       .catch(err => res.status(400).json(err));
   },
 
-  addReaction({ params, body }, res) {
-    Reaction.findOneAndUpdate(
-      { _id: params.reactionId },
-      { $push: { replies: body } },
-      { new: true, runValidators: true }
-    )
-      .then(dbThoughtData => {
-        if (!dbThoughtData) {
-          res.status(404).json({ message: 'No Thought found with this id!' });
-          return;
-        }
-        res.json(dbThoughtData);
-      })
-      .catch(err => res.json(err));
-  },
+  addReaction({ body, params }, res) {
+    // return res.json({message: "Add friend route"})
+    User.findOne({ _id: params.thoughtId })
+    .then(dbThoughtData2 => (dbThoughtData2)); {
+      // const reaction = dbThoughtData.reactions;
+      // const isFriend = friends.indexOf(body.reactionThoughtId) !== -1;
+      if(reaction){
+        return res.json({message: "Thought already has a reaction!"});
+      } else {
+        // Thought.findOneAndUpdate({ _id: params.thoughtId }, body, { new: true })
+        reactions.push(body.reactionThoughtId);
+      Thought.findOneAndUpdate({ _id: params.thoughtId },{ reactions }, { new: true })
+      .then(dbThoughtData2 => res.json(dbThoughtData2))
+        .catch(err => res.status(400).json(err));
+      }
+      // return res.json(isFriend)
+    }
+    // .catch(err => res.status(400).json(err));
+    // User.create(body)
+    // .then(dbData => res.json(dbUserData))
+    // .catch(err => res.status(400).json(err));
+    },
+
+  // addReaction({ params, body }, res) {
+  //   Reaction.findOneAndUpdate(
+  //     { _id: params.reactionId },
+  //     { $push: { replies: body } },
+  //     { new: true }
+  //   )
+  //     .then(dbReactionData => {
+  //       if (!dbReactionData) {
+  //         res.status(404).json({ message: 'No Reactions found with this id!' });
+  //         return;
+  //       }
+  //       res.json(dbReactionData);
+  //     })
+  //     .catch(err => res.json(err));
+  // },
 
   //remove thought
   deleteThought({ params}, res) {
