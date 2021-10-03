@@ -10,19 +10,19 @@
 
         } = require('../../controller/thought-controller');
 
-    const thoughtRoutes = require('../../models/hought');
+    const thoughtRoutes = require('../../models/Thought');
     const UserRoutes = require('./user-routes');
 //PREFIX HAS /api/thoughts
     // set up GET all and POST - /api/thoughts/:userId
     router
-        .route('/:userId')
+        .route('/thought')
         .get(allThoughts)
         .post(addThought);
 
     //set up get 1, PUT (Edit), and DELETE - /api/thoughts/:id
     router // req.params.userId
     // api/thoughts/thought/:thoughtId
-        .route('/thought/:thoughtId')
+        .route('/:thoughtId')
         .get(getThoughtById)
         .put(updateThought)
         .delete(removeThought)

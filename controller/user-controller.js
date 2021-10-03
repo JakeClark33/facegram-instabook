@@ -6,7 +6,7 @@ const userController = {
     getAllUsers(req, res) {
         User.find({})
         .populate({
-          path: 'thoughts',
+          path: ['thoughts', 'friends'],
           select: '-__v'
         })
         .then(dbUserData => res.json(dbUserData))
