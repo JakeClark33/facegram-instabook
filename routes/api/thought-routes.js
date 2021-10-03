@@ -1,39 +1,37 @@
-const router = require('express').Router();
-const { addThought, removeThought } = require('../../controller/thought-controller');
-// const userRoutes = require('./user-routes');
-// const thoughtModel = require('../../models/Thought');
-const thoughtRoutes = require('../../models/Thought');
-const UserRoutes = require('./user-routes');
+    const router = require('express').Router();
+    const { 
+            addThought, 
+            removeThought, 
+            allThoughts, 
+            addReaction, 
+            updateThought, 
+            removeReaction,
+        } = require('../../controller/thought-controller');
 
-const{
-    addReaction,
-    removeReaction,
-} = require('../../controller/thought-controller');
+    const thoughtRoutes = require('../../models/Thought');
+    const UserRoutes = require('./user-routes');
 
+    // set up GET all and POST - /api/thoughts
+    router
+        .route('/:userId')
+        .get(allThoughts)
+        .post(addThought);
 
-router.use('/thoughts', thoughtRoutes);
-router.use('/users', UserRoutes);
-// /api/comments/<userId>
+    //set up get 1, PUT (Edit), and DELETE - /api/thoughts/:id
+    router
+        .route('/:userId/:thoughtId')
+        .put(updateThought)
+        .delete(removeThought)
 
-// set up GET all and POST - /api/thoughts
-router
-    .route('/:userId')
-    // .get(allThoughts)
-    .post(addThought);
+    //set up POST routes for Reactions - api/thoughts/:thoughtId/reactions
+    router
+        .route('/api/thoughts/:thoughtId/reactions')
+        .post(addReaction)
 
-//set up get 1, PUT (Edit), and DELETE - /api/thoughts/:id
-router
-    .route('/:userId/:thoughtId')
-    .put(addReaction)
-    .delete(removeThought)
+    //set up DELETE for reactions - api/thoughts/:thoughtID/reactions/:reactionId
+    router
+        .route('/api/thoughts/:thoughtID/reactions/:reactionId')
+        .delete(removeReaction)
 
-//set up POST routes for Reactions - api/thoughts/:thoughtId/reactions
-
-
-//set up DELETE for reactions - api/thoughts/:thoughtID/reactions/:reactionId
-
-router.route('/:userId/:thoughtId/:reactionId').delete(removeReply);
-// /api/comments/userId/thoughtId
-router
 
 module.exports = router;
