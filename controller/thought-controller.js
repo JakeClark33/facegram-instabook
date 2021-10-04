@@ -83,7 +83,7 @@ const thoughtController = {
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
-      { $push: { replies: body } },
+      { $push: { reactions: body } },
       { new: true }
     )
       .then(dbUserData => {
@@ -91,7 +91,7 @@ const thoughtController = {
           res.status(404).json({ message: 'No User found with this id!' });
           return;
         }
-        res.json(dbReactionData);
+        res.json(dbUserData);
       })
       .catch(err => res.json(err));
   },
@@ -147,9 +147,9 @@ const thoughtController = {
 
   //delete pizza
   removeReaction({ params }, res) {
-    Reaction.findOneAndDelete({ _id: params.id })
-      .then(dbReactionData => {
-        if (!dbReactionData) {
+    Thought.findOneAndDelete({ _id: params.thoughtId })
+      .then(dbThoughtData => {
+        if (!dbThoughtData) {
           res.status(404).json({ message: 'No Reaction found with this Id!' });
           return;
         }
