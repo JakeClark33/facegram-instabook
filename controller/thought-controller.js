@@ -159,11 +159,12 @@ const thoughtController = {
   // }
 
   removeReaction({ body, params }, res) {
-    Thought.findOne({ _id: params.reactionId })
+    Thought.findOne({ _id: params.thoughtId })
     .then(dbThoughtData => {
       const reactions = dbThoughtData.reactions;
       const reactionIndex = reactions.indexOf(body.reactionThoughtId)
       const isReaction = reactionIndex !== -1;
+      console.log(reactionIndex);
       if(isReaction){
         reactions.splice(reactionIndex, 1);
         Thought.findOneAndUpdate({ _id: params.thoughtId },{ reactions }, { new: true })

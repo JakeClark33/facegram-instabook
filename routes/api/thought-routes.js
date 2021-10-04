@@ -34,7 +34,7 @@
 
     //set up DELETE for reactions - api/thoughts/:thoughtID/reactions/:reactionId
     router
-        .route('/:thoughtID/reactions/:reactionId')
+        .route('/:thoughtId/reactions/:reactionId')
         .delete(removeReaction)
 
 // api/thoughts/:thoughtId/user/:userId
