@@ -145,20 +145,39 @@ const thoughtController = {
   //     .catch(err => res.json(err));
   // },
 
-  //delete pizza
-  removeReaction({ params }, res) {
-    Thought.findOneAndDelete({ _id: params.thoughtId })
-      .then(dbThoughtData => {
-        if (!dbThoughtData) {
-          res.status(404).json({ message: 'No Reaction found with this Id!' });
-          return;
+  //delete reaction
+  // removeReaction({ params }, res) {
+  //   Thought.findOneAndUpdate({ _id: params.thoughtId })
+  //     .then(dbThoughtData => {
+  //       if (!dbThoughtData) {
+  //         res.status(404).json({ message: 'No Reaction found with this Id!' });
+  //         return;
+  //       }
+  //       res.json(dbReactionData);
+  //     })
+  //     .catch(err => res.status(400).json(err));
+  // }
+
+  removeReaction({ body, params }, res) {
+    Thought.findOne({ _id: params.reactionId })
+    .then(dbThoughtData => {
+      const reactions = dbThoughtData.reactions;
+      const reactionIndex = reactions.indexOf(body.reactionThoughtId)
+      const isReaction = reactionIndex !== -1;
+      if(isReaction){
+        reactions.splice(reactionIndex, 1);
+        Thought.findOneAndUpdate({ _id: params.thoughtId },{ reactions }, { new: true })
+          .then(dbThoughtData2 => res.json(dbThoughtData2))
+          .catch(err => res.status(400).json(err));
+      } else {
+        return res.json({message: "Thought already has a reaction!"});
+        return;
         }
         res.json(dbReactionData);
-      })
-      .catch(err => res.status(400).json(err));
-  }
+    })
+    .catch(err => res.status(400).json(err));
 }
-
+}
 module.exports = thoughtController;
 
 
